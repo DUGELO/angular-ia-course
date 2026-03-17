@@ -1,0 +1,30 @@
+import { Component, computed, inject } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RecipeService } from '../recipe-service';
+
+@Component({
+  selector: 'app-recipe-detail',
+  imports: [RouterLink],
+  templateUrl: './recipe-detail.html',
+  styleUrl: './recipe-detail.scss',
+})
+export class RecipeDetail {
+  private readonly route = inject(ActivatedRoute);
+  private readonly service = inject(RecipeService);
+
+  readonly id = computed(() => Number(this.route.snapshot.paramMap.get('id')));
+  readonly recipeById = computed(() => this.service.recipes().find(r => r.id === this.id()));
+  readonly servings = computed(() => this.service.servings());
+
+  protected readonly adjustedIngredients = computed(
+    () => {
+      const r = this.recipeById();
+      const s = this.servings();
+      console.log(s);
+      return r?.ingredients.map(ing => ({
+        ...ing,
+        quantity: ing.quantity * s
+      }))
+    }
+  )
+}

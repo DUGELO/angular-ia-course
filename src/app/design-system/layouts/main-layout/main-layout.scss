@@ -1,0 +1,11 @@
+.container-app {
+    width: 100%;
+    height: 100%;    
+
+    .container-main {
+        display: grid;
+        grid-template-columns: 12;
+        border: 1px solid red;
+        
+    }
+}

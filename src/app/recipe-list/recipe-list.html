@@ -1,0 +1,26 @@
+<main>
+  <div class="search-container">
+    <input type="text" placeholder="Pesquisar Receita" [(ngModel)]="searchTerm" />
+    <p>Search Term: {{ searchTerm() }}</p>
+    <p>Results Number: {{ filteredRecipes().length }}</p>
+    @for (recipe of filteredRecipes(); track recipe.id) {
+    <button [routerLink]="['/recipes', recipe.id]">{{ recipe.name }}</button>
+    }
+  </div>
+
+  <h4> Servings: {{ recipeService.servings() }} </h4>
+  <button (click)="increaseServings()">+ 1 serving</button>
+  <button (click)="decreaseServings()">- 1 serving</button>
+
+
+  <div>
+    <h1>Favorites ⭐</h1>
+    <ul>
+      @for (favorite of favorites(); track favorite.id) {
+        <li>
+          {{ favorite.name }}
+        </li>
+      }
+    </ul>
+  </div>
+</main>
