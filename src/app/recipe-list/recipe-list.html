@@ -1,26 +1,119 @@
-<main>
-  <div class="search-container">
-    <input type="text" placeholder="Pesquisar Receita" [(ngModel)]="searchTerm" />
-    <p>Search Term: {{ searchTerm() }}</p>
-    <p>Results Number: {{ filteredRecipes().length }}</p>
-    @for (recipe of filteredRecipes(); track recipe.id) {
-    <button [routerLink]="['/recipes', recipe.id]">{{ recipe.name }}</button>
+<main class="home-page">
+  @if (featuredRecipe(); as featured) {
+    <section class="hero-grid" aria-label="Featured recipes">
+      <article class="feature-card">
+        <a class="feature-media" [routerLink]="['/recipes', featured.id]" [attr.aria-label]="'Open ' + featured.name">
+          <img [src]="featured.imgUrl" [alt]="featured.name" loading="lazy">
+        </a>
+
+        <div class="feature-content">
+          <p class="eyebrow">Featured Recipe</p>
+          <h1>{{ featured.name }}</h1>
+          <p>{{ featured.description }}</p>
+          <a class="view-button" [routerLink]="['/recipes', featured.id]">View Recipe</a>
+        </div>
+      </article>
+
+      <div class="side-cards">
+        @for (recipe of quickPicks(); track recipe.id) {
+          @let metadata = metadataFor(recipe);
+          <article class="recipe-card recipe-card-compact">
+            <a class="image-wrap" [routerLink]="['/recipes', recipe.id]" [attr.aria-label]="'Open ' + recipe.name">
+              <img [src]="recipe.imgUrl" [alt]="recipe.name" loading="lazy">
+            </a>
+
+            <button
+              type="button"
+              class="favorite-button"
+              [class.active]="recipe.isFavorite"
+              [attr.aria-label]="recipe.isFavorite ? 'Remove from favorites' : 'Add to favorites'"
+              (click)="toggleFavorite($event, recipe.id)"
+            >
+              <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
+            </button>
+
+            <div class="recipe-content">
+              <h2><a [routerLink]="['/recipes', recipe.id]">{{ recipe.name }}</a></h2>
+
+              <div class="meta-line">
+                <span class="meta-time">
+                  <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                  {{ metadata.duration }}
+                </span>
+                <span
+                  class="difficulty-badge"
+                  [class.easy]="metadata.difficulty === 'Easy'"
+                  [class.medium]="metadata.difficulty === 'Medium'"
+                  [class.hard]="metadata.difficulty === 'Hard'"
+                >
+                  {{ metadata.difficulty }}
+                </span>
+              </div>
+
+              <div class="meta-line meta-rating">
+                <span class="stars" aria-hidden="true">★★★★★</span>
+                <span>{{ metadata.rating }} ({{ metadata.reviews }})</span>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+
+    @if (popularRecipes().length > 0) {
+      <section class="popular-section" aria-label="Popular recipes">
+        <h2>Popular Recipes</h2>
+
+        <div class="popular-grid">
+          @for (recipe of popularRecipes(); track recipe.id) {
+            @let metadata = metadataFor(recipe);
+            <article class="recipe-card">
+              <a class="image-wrap" [routerLink]="['/recipes', recipe.id]" [attr.aria-label]="'Open ' + recipe.name">
+                <img [src]="recipe.imgUrl" [alt]="recipe.name" loading="lazy">
+              </a>
+
+              <button
+                type="button"
+                class="favorite-button"
+                [class.active]="recipe.isFavorite"
+                [attr.aria-label]="recipe.isFavorite ? 'Remove from favorites' : 'Add to favorites'"
+                (click)="toggleFavorite($event, recipe.id)"
+              >
+                <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
+              </button>
+
+              <div class="recipe-content">
+                <h3><a [routerLink]="['/recipes', recipe.id]">{{ recipe.name }}</a></h3>
+
+                <div class="meta-line">
+                  <span class="meta-time">
+                    <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                    {{ metadata.duration }}
+                  </span>
+                  <span
+                    class="difficulty-badge"
+                    [class.easy]="metadata.difficulty === 'Easy'"
+                    [class.medium]="metadata.difficulty === 'Medium'"
+                    [class.hard]="metadata.difficulty === 'Hard'"
+                  >
+                    {{ metadata.difficulty }}
+                  </span>
+                </div>
+
+                <div class="meta-line meta-rating">
+                  <span class="stars" aria-hidden="true">★★★★★</span>
+                  <span>{{ metadata.rating }} ({{ metadata.reviews }})</span>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
     }
-  </div>
-
-  <h4> Servings: {{ recipeService.servings() }} </h4>
-  <button (click)="increaseServings()">+ 1 serving</button>
-  <button (click)="decreaseServings()">- 1 serving</button>
-
-
-  <div>
-    <h1>Favorites ⭐</h1>
-    <ul>
-      @for (favorite of favorites(); track favorite.id) {
-        <li>
-          {{ favorite.name }}
-        </li>
-      }
-    </ul>
-  </div>
+  } @else {
+    <section class="empty-state" aria-live="polite">
+      <h2>No recipes found</h2>
+      <p>Try another search term to find new dishes.</p>
+    </section>
+  }
 </main>
