@@ -23,7 +23,13 @@
 </div>
 }
 @else {
-  <div class="recipe-not-found">
-    <p>Recipe Not Found</p>
+  <div class="recipe-not-found-page">
+    <div class="home-preview" aria-hidden="true">
+      <app-recipe-list></app-recipe-list>
+    </div>
+
+    <div class="modal-layer">
+      <app-recipe-not-found></app-recipe-not-found>
+    </div>
   </div>
 }

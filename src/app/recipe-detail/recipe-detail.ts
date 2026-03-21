@@ -1,10 +1,12 @@
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RecipeService } from '../recipe-service';
+import { RecipeNotFound } from "./recipe-not-found/recipe-not-found";
+import { RecipeList } from '../recipe-list/recipe-list';
 
 @Component({
   selector: 'app-recipe-detail',
-  imports: [RouterLink],
+  imports: [RouterLink, RecipeNotFound, RecipeList],
   templateUrl: './recipe-detail.html',
   styleUrl: './recipe-detail.scss',
 })
@@ -20,7 +22,6 @@ export class RecipeDetail {
     () => {
       const r = this.recipeById();
       const s = this.servings();
-      console.log(s);
       return r?.ingredients.map(ing => ({
         ...ing,
         quantity: ing.quantity * s
