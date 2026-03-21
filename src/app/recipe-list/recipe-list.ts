@@ -24,10 +24,10 @@ export class RecipeList {
   private readonly recipeMetaById: Record<number, RecipeMeta> = {
     1: { duration: '45 mins', difficulty: 'Medium', rating: '4.9', reviews: '2.4k' },
     2: { duration: '35 mins', difficulty: 'Easy', rating: '4.8', reviews: '1.2k' },
-    3: { duration: '30 mins', difficulty: 'Medium', rating: '4.8', reviews: '1.1k' },
+    3: { duration: '30 mins', difficulty: 'Hard', rating: '4.8', reviews: '1.1k' },
     4: { duration: '35 mins', difficulty: 'Easy', rating: '4.7', reviews: '1.0k' },
     5: { duration: '30 mins', difficulty: 'Medium', rating: '4.8', reviews: '1.3k' },
-    6: { duration: '35 mins', difficulty: 'Easy', rating: '4.8', reviews: '1.2k' },
+    6: { duration: '35 mins', difficulty: 'Hard', rating: '4.8', reviews: '1.2k' },
     7: { duration: '35 mins', difficulty: 'Medium', rating: '4.8', reviews: '1.2k' },
     8: { duration: '25 mins', difficulty: 'Easy', rating: '4.6', reviews: '860' },
   };
