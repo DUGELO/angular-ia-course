@@ -357,10 +357,11 @@
 
 .recipe-not-found-page {
     position: relative;
-    min-height: calc(100vh - 180px);
+    min-height: calc(100dvh - 180px);
     padding: var(--spacing-md) 0 var(--spacing-xl);
     isolation: isolate;
     perspective: 1800px;
+    overflow: hidden;
 
     &::before {
         content: '';
@@ -451,7 +452,13 @@
 
 @media (max-width: 768px) {
     .recipe-not-found-page {
-        min-height: auto;
+        perspective: none;
+        padding: var(--spacing-sm) 0 var(--spacing-md);
+
+        &::before,
+        &::after {
+            border-radius: 0;
+        }
 
         .home-preview {
             transform: none;
@@ -460,11 +467,9 @@
         }
 
         .modal-layer {
-            position: relative;
-            inset: auto;
-            padding: var(--spacing-md) 0 0;
-            background: none;
-            backdrop-filter: none;
+            padding: var(--spacing-md) var(--spacing-sm);
+            backdrop-filter: blur(6px);
+            overflow-y: auto;
         }
     }
 }
