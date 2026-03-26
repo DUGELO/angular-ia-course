@@ -1,26 +1,50 @@
-@if (recipeById()) {
+@if (recipeById(); as recipe) {
   <div class="recipe-details">
-  <h2>{{ recipeById()?.name }}
-    @if(recipeById()?.isFavorite) {
-    <span class="isFavorite">⭐</span>
-  }
-  </h2>
-  <h4>{{ recipeById()?.description }}</h4>
+    <h2>{{ recipe.title }}
+      @if (recipe.isFavorite) {
+        <span class="isFavorite" aria-label="Favorite">⭐</span>
+      }
+    </h2>
+    <p class="recipe-category">{{ recipe.category }}</p>
+    <h4>{{ recipe.description }}</h4>
 
-  <img [src]="recipeById()?.imgUrl" [alt]="recipeById()?.name" width="300">
-  <p>Ingredients: </p>
-  <ul>
-    @for (ingredient of adjustedIngredients(); track ingredient.id) {
-      <li>
-        <p>{{ ingredient.name }}</p>
-        <p> quantity: {{ ingredient.quantity }}</p>
-        <p> unit: {{ ingredient.unit }}</p>
-      </li>
-    }
-  </ul>
+    <img [src]="recipe.imageUrl" [alt]="recipe.title" width="300">
 
-  <button routerLink="/">Back to List</button>
-</div>
+    <div class="recipe-tags">
+      @for (tag of recipe.tags; track tag) {
+        <span class="tag">{{ tag }}</span>
+      }
+    </div>
+
+    <div class="recipe-meta">
+      <span>⏱ {{ recipe.meta.duration }} mins</span>
+      <span>📊 {{ recipe.meta.difficulty }}</span>
+      <span>⭐ {{ recipe.meta.rating }}</span>
+      @if (recipe.meta.calories) {
+        <span>🔥 {{ recipe.meta.calories }} kcal</span>
+      }
+    </div>
+
+    <section aria-labelledby="ingredients-heading">
+      <h3 id="ingredients-heading">Ingredients</h3>
+      <ul>
+        @for (ingredient of adjustedIngredients(); track ingredient.id) {
+          <li>{{ ingredient.name }} — {{ ingredient.quantity }} {{ ingredient.unit }}</li>
+        }
+      </ul>
+    </section>
+
+    <section aria-labelledby="steps-heading">
+      <h3 id="steps-heading">Instructions</h3>
+      <ol>
+        @for (step of recipe.steps; track step.order) {
+          <li>{{ step.instruction }}</li>
+        }
+      </ol>
+    </section>
+
+    <button routerLink="/">Back to List</button>
+  </div>
 }
 @else {
   <div class="recipe-not-found-page">

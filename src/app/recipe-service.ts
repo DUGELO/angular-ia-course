@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { RecipeModel } from './models';
+import { Recipe } from './models';
 import { MOCK_RECIPES } from './mock-recipes';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { MOCK_RECIPES } from './mock-recipes';
 export class RecipeService {
 
   // STATE
-  readonly recipes = signal<RecipeModel[]>(MOCK_RECIPES);
+  readonly recipes = signal<Recipe[]>(MOCK_RECIPES);
 
   readonly searchTerm = signal('');
 
@@ -19,7 +19,7 @@ export class RecipeService {
     }
 
     return this.recipes().filter((recipe) => {
-      return recipe.name.toLowerCase().includes(term) || recipe.description.toLowerCase().includes(term);
+      return recipe.title.toLowerCase().includes(term) || recipe.description.toLowerCase().includes(term);
     });
   });
 
@@ -39,7 +39,7 @@ export class RecipeService {
     this.servings.update(s => Math.max(1, s - 1));
   }
 
-  toggleFavorite(recipeId: number): void {
+  toggleFavorite(recipeId: string): void {
     this.recipes.update((recipes) => {
       return recipes.map((recipe) => {
         if (recipe.id !== recipeId) {

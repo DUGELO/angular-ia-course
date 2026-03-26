@@ -14,8 +14,11 @@ export class RecipeDetail {
   private readonly route = inject(ActivatedRoute);
   private readonly service = inject(RecipeService);
 
-  readonly id = computed(() => Number(this.route.snapshot.paramMap.get('id')));
-  readonly recipeById = computed(() => this.service.recipes().find(r => r.id === this.id()));
+  readonly id = computed(() => this.route.snapshot.paramMap.get('id'));
+  readonly recipeById = computed(() => {
+    const id = this.id();
+    return id ? this.service.recipes().find(r => r.id === id) : undefined;
+  });
   readonly servings = computed(() => this.service.servings());
 
   protected readonly adjustedIngredients = computed(
