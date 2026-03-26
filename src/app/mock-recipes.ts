@@ -18,6 +18,12 @@ export const MOCK_RECIPES: RecipeModel[] = [
         difficulty: 'Easy',
         rating: 4.8,
         reviewCount: 1200,
+        steps: [
+            'Cook pasta according to package directions until al dente. Drain and reserve ½ cup pasta water.',
+            'Sauté shrimp in olive oil and garlic butter until pink, about 2–3 minutes per side. Remove and set aside.',
+            'Combine pasta with lemon juice, zest, reserved water and shrimp. Toss until silky and well coated.',
+        ],
+        tips: 'Use fresh lemon juice and zest for the brightest flavor. Pull shrimp off heat when just pink — they continue cooking from residual heat.',
     },
     {
         id: 2,
@@ -35,6 +41,12 @@ export const MOCK_RECIPES: RecipeModel[] = [
         difficulty: 'Easy',
         rating: 4.8,
         reviewCount: 1100,
+        steps: [
+            'Rinse and cook quinoa in salted water until fluffy. Spread on a tray to cool.',
+            'Dice tomatoes, cucumber and red onion. Crumble feta cheese.',
+            'Toss everything with olive oil, lemon juice, salt and fresh herbs.',
+        ],
+        tips: 'Make ahead and refrigerate — the flavors develop and get even better overnight.',
     },
     {
         id: 3,
@@ -53,6 +65,12 @@ export const MOCK_RECIPES: RecipeModel[] = [
         difficulty: 'Medium',
         rating: 4.8,
         reviewCount: 1200,
+        steps: [
+            'Preheat oven to 200°C. Toss sweet potato and broccoli with oil, salt and spices.',
+            'Roast vegetables for 25–30 minutes until golden and tender.',
+            'Assemble bowls with rice, roasted vegetables, chickpeas and tahini drizzle.',
+        ],
+        tips: 'Massage kale with a little oil and salt if adding greens — it softens the texture beautifully.',
     },
     {
         id: 4,
@@ -71,6 +89,12 @@ export const MOCK_RECIPES: RecipeModel[] = [
         difficulty: 'Easy',
         rating: 4.8,
         reviewCount: 1200,
+        steps: [
+            'Bring steak to room temperature. Season generously with salt and pepper.',
+            'Sear in a hot cast-iron skillet with oil for 3–4 minutes each side. Add butter, garlic and rosemary to baste.',
+            'Rest steak for 5 minutes before slicing. Serve with buttered green beans.',
+        ],
+        tips: 'Let the steak rest — this redistributes juices for a more tender, flavorful bite.',
     },
     {
         id: 5,
@@ -89,6 +113,12 @@ export const MOCK_RECIPES: RecipeModel[] = [
         difficulty: 'Medium',
         rating: 4.8,
         reviewCount: 1200,
+        steps: [
+            'Slice chicken and vegetables. Heat oil in a deep pan over medium-high heat.',
+            'Fry curry paste for 1 minute, then add coconut milk and bring to a simmer.',
+            'Add chicken and vegetables. Cook until done and sauce thickens. Finish with fresh basil.',
+        ],
+        tips: 'Toast the curry paste in oil before adding coconut milk — it deepens the flavor significantly.',
     },
     {
         id: 6,

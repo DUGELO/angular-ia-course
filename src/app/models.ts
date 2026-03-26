@@ -18,4 +18,6 @@ export interface RecipeModel {
     difficulty: DifficultyLevel;
     rating: number;
     reviewCount: number;
+    steps?: string[];
+    tips?: string;
 }

@@ -1,28 +1,149 @@
-@if (recipeById()) {
-  <div class="recipe-details">
-  <h2>{{ recipeById()?.name }}
-    @if(recipeById()?.isFavorite) {
-    <span class="isFavorite">⭐</span>
-  }
-  </h2>
-  <h4>{{ recipeById()?.description }}</h4>
+@if (recipeById(); as recipe) {
+  <article class="recipe-detail-page">
+    <!-- Hero: image + step preview -->
+    <section class="hero">
+      <div class="hero-image">
+        <img [src]="recipe.imgUrl" [alt]="recipe.name">
+      </div>
+      @if (recipe.steps?.length) {
+        <aside class="hero-steps" aria-label="Steps preview">
+          <h2>Step-by-Step Instructions</h2>
+          <ol>
+            @for (step of recipe.steps; track $index) {
+              <li>
+                <span class="step-num" aria-hidden="true">{{ $index + 1 }}</span>
+                <p>{{ step }}</p>
+              </li>
+            }
+          </ol>
+        </aside>
+      }
+    </section>
 
-  <img [src]="recipeById()?.imgUrl" [alt]="recipeById()?.name" width="300">
-  <p>Ingredients: </p>
-  <ul>
-    @for (ingredient of adjustedIngredients(); track ingredient.id) {
-      <li>
-        <p>{{ ingredient.name }}</p>
-        <p> quantity: {{ ingredient.quantity }}</p>
-        <p> unit: {{ ingredient.unit }}</p>
-      </li>
-    }
-  </ul>
+    <!-- Title + Meta + Actions -->
+    <section class="info-bar">
+      <h1>{{ recipe.name }}</h1>
+      <div class="meta-actions-row">
+        <div class="meta-group">
+          <span class="stars" [attr.aria-label]="'Rating ' + formatRating(recipe) + ' out of 5'">★★★★★</span>
+          <span class="rating-text">{{ formatRating(recipe) }} ({{ formatReviewCount(recipe) }})</span>
+          <span class="meta-time">
+            <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+            {{ formatDuration(recipe) }}
+          </span>
+          <span
+            class="difficulty-badge"
+            [class.easy]="recipe.difficulty === 'Easy'"
+            [class.medium]="recipe.difficulty === 'Medium'"
+            [class.hard]="recipe.difficulty === 'Hard'"
+          >{{ recipe.difficulty }}</span>
+        </div>
+        <div class="actions-group">
+          <button type="button" class="action-btn" [class.active]="recipe.isFavorite" (click)="toggleFavorite()">
+            <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
+            Save
+          </button>
+          <button type="button" class="action-btn">
+            <span class="material-symbols-outlined" aria-hidden="true">ios_share</span>
+            Share
+          </button>
+          <button type="button" class="cta-btn">Start Cooking</button>
+        </div>
+      </div>
+    </section>
 
-  <button routerLink="/">Back to List</button>
-</div>
-}
-@else {
+    <hr class="divider">
+
+    <!-- 3-column content -->
+    <section class="content-columns">
+      <!-- Ingredients -->
+      <div class="col-ingredients">
+        <div class="col-heading-row">
+          <h2>Ingredients</h2>
+          <div class="servings-control">
+            <button type="button" aria-label="Decrease servings" (click)="decreaseServings()">−</button>
+            <span>{{ servings() }}</span>
+            <button type="button" aria-label="Increase servings" (click)="increaseServings()">+</button>
+          </div>
+        </div>
+        <ul class="ingredient-checklist">
+          @for (ing of adjustedIngredients(); track ing.id) {
+            <li>
+              <label>
+                <input type="checkbox">
+                <span>{{ formatIngredient(ing) }}</span>
+              </label>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Steps -->
+      @if (recipe.steps?.length) {
+        <div class="col-steps">
+          <h2>Step-by-Step Instructions</h2>
+          <ol class="step-list">
+            @for (step of recipe.steps; track $index) {
+              <li>
+                <span class="step-num" aria-hidden="true">{{ $index + 1 }}</span>
+                <p>{{ step }}</p>
+              </li>
+            }
+          </ol>
+        </div>
+      }
+
+      <!-- Sidebar -->
+      <div class="col-sidebar">
+        @if (recipe.tips) {
+          <div class="tips-card">
+            <h3>Tips &amp; Notes</h3>
+            <p>{{ recipe.tips }}</p>
+          </div>
+        }
+
+        @if (relatedRecipes().length) {
+          <section class="related-section">
+            <h3>Related Recipes</h3>
+            <div class="related-scroll">
+              @for (related of relatedRecipes(); track related.id) {
+                <a class="related-card" [routerLink]="['/recipes', related.id]">
+                  <div class="related-img-wrap">
+                    <img [src]="related.imgUrl" [alt]="related.name" loading="lazy">
+                    <button
+                      type="button"
+                      class="fav-btn"
+                      [class.active]="related.isFavorite"
+                      [attr.aria-label]="related.isFavorite ? 'Remove from favorites' : 'Add to favorites'"
+                      (click)="toggleRelatedFavorite($event, related.id)"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
+                    </button>
+                  </div>
+                  <h4>{{ related.name }}</h4>
+                  <div class="related-meta">
+                    <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                    {{ formatDuration(related) }}
+                    <span
+                      class="difficulty-badge"
+                      [class.easy]="related.difficulty === 'Easy'"
+                      [class.medium]="related.difficulty === 'Medium'"
+                      [class.hard]="related.difficulty === 'Hard'"
+                    >{{ related.difficulty }}</span>
+                  </div>
+                  <div class="related-rating">
+                    <span class="stars small" aria-hidden="true">★★★★★</span>
+                    <span>{{ formatRating(related) }} ({{ formatReviewCount(related) }})</span>
+                  </div>
+                </a>
+              }
+            </div>
+          </section>
+        }
+      </div>
+    </section>
+  </article>
+} @else {
   <div class="recipe-not-found-page">
     <div class="home-preview" aria-hidden="true">
       <app-recipe-list></app-recipe-list>
