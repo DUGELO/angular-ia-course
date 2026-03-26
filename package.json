@@ -2,6 +2,7 @@
   "name": "angular-ia-course",
   "version": "0.0.0",
   "scripts": {
+    "deploy": "ng deploy --base-href=/angular-ia-course/ --dir=dist/angular-ia-course/browser",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

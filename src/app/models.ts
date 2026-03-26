@@ -5,11 +5,17 @@ export interface Ingredient {
     unit: string;
 }
 
+export type DifficultyLevel = 'Easy' | 'Medium' | 'Hard';
+
 export interface RecipeModel {
     id: number;
     name: string;
     description: string;
     imgUrl: string;
     isFavorite: boolean;
-    ingredients: Ingredient[]
+    ingredients: Ingredient[];
+    durationMinutes: number;
+    difficulty: DifficultyLevel;
+    rating: number;
+    reviewCount: number;
 }

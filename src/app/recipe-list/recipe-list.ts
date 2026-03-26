@@ -3,13 +3,6 @@ import { RecipeService } from '../recipe-service';
 import { RouterLink } from "@angular/router";
 import { RecipeModel } from '../models';
 
-interface RecipeMeta {
-  duration: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  rating: string;
-  reviews: string;
-}
-
 @Component({
   selector: 'app-recipe-list',
   imports: [RouterLink],
@@ -20,27 +13,15 @@ export class RecipeList {
   //SERVICES
   protected readonly recipeService = inject(RecipeService);
 
-  // DESIGN METADATA
-  private readonly recipeMetaById: Record<number, RecipeMeta> = {
-    1: { duration: '45 mins', difficulty: 'Medium', rating: '4.9', reviews: '2.4k' },
-    2: { duration: '35 mins', difficulty: 'Easy', rating: '4.8', reviews: '1.2k' },
-    3: { duration: '30 mins', difficulty: 'Hard', rating: '4.8', reviews: '1.1k' },
-    4: { duration: '35 mins', difficulty: 'Easy', rating: '4.7', reviews: '1.0k' },
-    5: { duration: '30 mins', difficulty: 'Medium', rating: '4.8', reviews: '1.3k' },
-    6: { duration: '35 mins', difficulty: 'Hard', rating: '4.8', reviews: '1.2k' },
-    7: { duration: '35 mins', difficulty: 'Medium', rating: '4.8', reviews: '1.2k' },
-    8: { duration: '25 mins', difficulty: 'Easy', rating: '4.6', reviews: '860' },
-  };
-
   // VIEW MODEL
   protected readonly featuredRecipe = computed(() => {
-    const recipes = this.recipeService.filteredRecipes();
+    const recipes = this.recipeService.recipes();
     return recipes[0] ?? null;
   });
 
   protected readonly quickPicks = computed(() => {
     const featured = this.featuredRecipe();
-    return this.selectRecipes(this.recipeService.filteredRecipes(), 2, featured ? [featured.id] : []);
+    return this.selectRecipes(this.recipeService.recipes(), 2, featured ? [featured.id] : []);
   });
 
   protected readonly popularRecipes = computed(() => {
@@ -51,7 +32,7 @@ export class RecipeList {
     }
 
     this.quickPicks().forEach((recipe) => excludeIds.add(recipe.id));
-    return this.selectRecipes(this.recipeService.filteredRecipes(), 6, Array.from(excludeIds));
+    return this.selectRecipes(this.recipeService.recipes(), 6, Array.from(excludeIds));
   });
 
   // HANDLERS
@@ -61,25 +42,26 @@ export class RecipeList {
     this.recipeService.toggleFavorite(recipeId);
   }
 
-  protected metadataFor(recipe: RecipeModel): RecipeMeta {
-    return this.recipeMetaById[recipe.id] ?? {
-      duration: '35 mins',
-      difficulty: 'Easy',
-      rating: '4.8',
-      reviews: '1.0k',
-    };
+  protected formatDuration(recipe: RecipeModel): string {
+    return `${recipe.durationMinutes} mins`;
+  }
+
+  protected formatRating(recipe: RecipeModel): string {
+    return recipe.rating.toFixed(1);
+  }
+
+  protected formatReviewCount(recipe: RecipeModel): string {
+    if (recipe.reviewCount >= 1000) {
+      return `${(recipe.reviewCount / 1000).toFixed(1)}k`;
+    }
+
+    return `${recipe.reviewCount}`;
   }
 
   private selectRecipes(recipes: RecipeModel[], amount: number, excludedIds: number[] = []): RecipeModel[] {
-    const isSearchActive = this.recipeService.searchTerm().trim().length > 0;
-
-    if (isSearchActive) {
-      return recipes.filter((recipe) => !excludedIds.includes(recipe.id)).slice(0, amount);
-    }
-
     const selected: RecipeModel[] = [];
     const seenIds = new Set<number>(excludedIds);
-    const pool = [...recipes, ...this.recipeService.recipes()];
+    const pool = [...recipes];
 
     for (const recipe of pool) {
       if (seenIds.has(recipe.id)) {

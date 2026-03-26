@@ -16,7 +16,6 @@
 
       <div class="side-cards">
         @for (recipe of quickPicks(); track recipe.id) {
-          @let metadata = metadataFor(recipe);
           <article class="recipe-card recipe-card-compact">
             <a class="image-wrap" [routerLink]="['/recipes', recipe.id]" [attr.aria-label]="'Open ' + recipe.name">
               <img [src]="recipe.imgUrl" [alt]="recipe.name" loading="lazy">
@@ -38,21 +37,21 @@
               <div class="meta-line">
                 <span class="meta-time">
                   <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
-                  {{ metadata.duration }}
+                  {{ formatDuration(recipe) }}
                 </span>
                 <span
                   class="difficulty-badge"
-                  [class.easy]="metadata.difficulty === 'Easy'"
-                  [class.medium]="metadata.difficulty === 'Medium'"
-                  [class.hard]="metadata.difficulty === 'Hard'"
+                  [class.easy]="recipe.difficulty === 'Easy'"
+                  [class.medium]="recipe.difficulty === 'Medium'"
+                  [class.hard]="recipe.difficulty === 'Hard'"
                 >
-                  {{ metadata.difficulty }}
+                  {{ recipe.difficulty }}
                 </span>
               </div>
 
               <div class="meta-line meta-rating">
                 <span class="stars" aria-hidden="true">★★★★★</span>
-                <span>{{ metadata.rating }} ({{ metadata.reviews }})</span>
+                <span>{{ formatRating(recipe) }} ({{ formatReviewCount(recipe) }})</span>
               </div>
             </div>
           </article>
@@ -66,7 +65,6 @@
 
         <div class="popular-grid">
           @for (recipe of popularRecipes(); track recipe.id) {
-            @let metadata = metadataFor(recipe);
             <article class="recipe-card">
               <a class="image-wrap" [routerLink]="['/recipes', recipe.id]" [attr.aria-label]="'Open ' + recipe.name">
                 <img [src]="recipe.imgUrl" [alt]="recipe.name" loading="lazy">
@@ -88,21 +86,21 @@
                 <div class="meta-line">
                   <span class="meta-time">
                     <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
-                    {{ metadata.duration }}
+                    {{ formatDuration(recipe) }}
                   </span>
                   <span
                     class="difficulty-badge"
-                    [class.easy]="metadata.difficulty === 'Easy'"
-                    [class.medium]="metadata.difficulty === 'Medium'"
-                    [class.hard]="metadata.difficulty === 'Hard'"
+                    [class.easy]="recipe.difficulty === 'Easy'"
+                    [class.medium]="recipe.difficulty === 'Medium'"
+                    [class.hard]="recipe.difficulty === 'Hard'"
                   >
-                    {{ metadata.difficulty }}
+                    {{ recipe.difficulty }}
                   </span>
                 </div>
 
                 <div class="meta-line meta-rating">
                   <span class="stars" aria-hidden="true">★★★★★</span>
-                  <span>{{ metadata.rating }} ({{ metadata.reviews }})</span>
+                  <span>{{ formatRating(recipe) }} ({{ formatReviewCount(recipe) }})</span>
                 </div>
               </div>
             </article>
