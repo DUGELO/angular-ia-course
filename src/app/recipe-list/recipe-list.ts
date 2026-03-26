@@ -16,7 +16,7 @@ export class RecipeList {
   // VIEW MODEL
   protected readonly featuredRecipe = computed(() => {
     const recipes = this.recipeService.recipes();
-    return recipes[0] ?? null;
+    return recipes[7] ?? null;
   });
 
   protected readonly quickPicks = computed(() => {
