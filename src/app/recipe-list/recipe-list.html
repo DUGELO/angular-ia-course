@@ -37,6 +37,7 @@
               <div class="meta-line">
                 <span class="meta-time">
                   <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+<<<<<<< HEAD
                   {{ recipe.meta.duration }} mins
                 </span>
                 <span
@@ -46,12 +47,27 @@
                   [class.hard]="recipe.meta.difficulty === 'hard'"
                 >
                   {{ recipe.meta.difficulty }}
+=======
+                  {{ formatDuration(recipe) }}
+                </span>
+                <span
+                  class="difficulty-badge"
+                  [class.easy]="recipe.difficulty === 'Easy'"
+                  [class.medium]="recipe.difficulty === 'Medium'"
+                  [class.hard]="recipe.difficulty === 'Hard'"
+                >
+                  {{ recipe.difficulty }}
+>>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
                 </span>
               </div>
 
               <div class="meta-line meta-rating">
                 <span class="stars" aria-hidden="true">★★★★★</span>
+<<<<<<< HEAD
                 <span>{{ recipe.meta.rating }} ({{ recipe.meta.reviewsCount }})</span>
+=======
+                <span>{{ formatRating(recipe) }} ({{ formatReviewCount(recipe) }})</span>
+>>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
               </div>
             </div>
           </article>
@@ -86,6 +102,7 @@
                 <div class="meta-line">
                   <span class="meta-time">
                     <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+<<<<<<< HEAD
                     {{ recipe.meta.duration }} mins
                   </span>
                   <span
@@ -95,12 +112,27 @@
                     [class.hard]="recipe.meta.difficulty === 'hard'"
                   >
                     {{ recipe.meta.difficulty }}
+=======
+                    {{ formatDuration(recipe) }}
+                  </span>
+                  <span
+                    class="difficulty-badge"
+                    [class.easy]="recipe.difficulty === 'Easy'"
+                    [class.medium]="recipe.difficulty === 'Medium'"
+                    [class.hard]="recipe.difficulty === 'Hard'"
+                  >
+                    {{ recipe.difficulty }}
+>>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
                   </span>
                 </div>
 
                 <div class="meta-line meta-rating">
                   <span class="stars" aria-hidden="true">★★★★★</span>
+<<<<<<< HEAD
                   <span>{{ recipe.meta.rating }} ({{ recipe.meta.reviewsCount }})</span>
+=======
+                  <span>{{ formatRating(recipe) }} ({{ formatReviewCount(recipe) }})</span>
+>>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
                 </div>
               </div>
             </article>
