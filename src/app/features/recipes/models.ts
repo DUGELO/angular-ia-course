@@ -1,4 +1,8 @@
-export type Difficulty = 'easy' | 'medium' | 'hard';
+export type DifficultyLevel = 'Easy' | 'Medium' | 'Hard';
+
+export type RecipeCategory = 'Main Course' | 'Salad' | 'Bowl' | 'Pasta' | 'Curry' | 'Steak' | 'Stir-Fry';
+
+export type Cuisine = 'Italian' | 'Mediterranean' | 'American' | 'Thai' | 'Asian' | 'Fusion';
 
 export interface Ingredient {
   id: number;
@@ -7,28 +11,29 @@ export interface Ingredient {
   unit: string;
 }
 
-export interface RecipeStep {
-  order: number;
-  instruction: string;
-}
-
-export interface RecipeMeta {
-  duration: number;
-  difficulty: Difficulty;
-  rating: number;
-  reviewsCount: number;
-  calories?: number;
-}
-
-export interface Recipe {
-  id: string;
-  title: string;
+export interface RecipeModel {
+  id: number;
+  slug: string;
+  name: string;
   description: string;
-  imageUrl: string;
-  category: string;
-  tags: string[];
-  ingredients: Ingredient[];
-  steps: RecipeStep[];
-  meta: RecipeMeta;
+  imgUrl: string;
+  imageAlt?: string;
   isFavorite: boolean;
+  ingredients: Ingredient[];
+  durationMinutes: number;
+  prepMinutes?: number;
+  cookMinutes?: number;
+  servings?: number;
+  calories?: number;
+  difficulty: DifficultyLevel;
+  category?: RecipeCategory;
+  cuisine?: Cuisine;
+  tags?: string[];
+  rating: number;
+  reviewCount: number;
+  steps?: string[];
+  tips?: string;
+  featured?: boolean;
 }
+
+export type Recipe = RecipeModel;

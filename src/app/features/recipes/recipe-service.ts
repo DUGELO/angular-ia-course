@@ -143,7 +143,7 @@ export class RecipeService {
     this.servings.update(s => Math.max(1, s - 1));
   }
 
-  toggleFavorite(recipeId: string): void {
+  toggleFavorite(recipeId: number): void {
     this.recipes.update((recipes) => {
       return recipes.map((recipe) => {
         if (recipe.id !== recipeId) {

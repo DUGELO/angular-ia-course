@@ -1,12 +1,9 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-<<<<<<< HEAD
-import { Recipe } from '../models';
+import { RecipeModel } from '../models';
 import { RecipeService } from '../recipe-service';
 
-=======
->>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
 @Component({
   selector: 'app-recipe-list',
   imports: [RouterLink],
@@ -30,7 +27,7 @@ export class RecipeList {
 
   protected readonly popularRecipes = computed(() => {
     const featured = this.featuredRecipe();
-    const excludeIds = new Set<string>();
+    const excludeIds = new Set<number>();
     if (featured) {
       excludeIds.add(featured.id);
     }
@@ -40,7 +37,7 @@ export class RecipeList {
   });
 
   // HANDLERS
-  protected toggleFavorite(event: Event, recipeId: string): void {
+  protected toggleFavorite(event: Event, recipeId: number): void {
     event.preventDefault();
     event.stopPropagation();
     this.recipeService.toggleFavorite(recipeId);

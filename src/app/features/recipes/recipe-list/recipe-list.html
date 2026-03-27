@@ -2,13 +2,13 @@
   @if (featuredRecipe(); as featured) {
     <section class="hero-grid" aria-label="Featured recipes">
       <article class="feature-card">
-        <a class="feature-media" [routerLink]="['/recipes', featured.id]" [attr.aria-label]="'Open ' + featured.title">
-          <img [src]="featured.imageUrl" [alt]="featured.title" loading="lazy">
+        <a class="feature-media" [routerLink]="['/recipes', featured.id]" [attr.aria-label]="'Open ' + featured.name">
+          <img [src]="featured.imgUrl" [alt]="featured.name" loading="lazy">
         </a>
 
         <div class="feature-content">
           <p class="eyebrow">Featured Recipe</p>
-          <h1>{{ featured.title }}</h1>
+          <h1>{{ featured.name }}</h1>
           <p>{{ featured.description }}</p>
           <a class="view-button" [routerLink]="['/recipes', featured.id]">View Recipe</a>
         </div>
@@ -17,8 +17,8 @@
       <div class="side-cards">
         @for (recipe of quickPicks(); track recipe.id) {
           <article class="recipe-card recipe-card-compact">
-            <a class="image-wrap" [routerLink]="['/recipes', recipe.id]" [attr.aria-label]="'Open ' + recipe.title">
-              <img [src]="recipe.imageUrl" [alt]="recipe.title" loading="lazy">
+            <a class="image-wrap" [routerLink]="['/recipes', recipe.id]" [attr.aria-label]="'Open ' + recipe.name">
+              <img [src]="recipe.imgUrl" [alt]="recipe.name" loading="lazy">
             </a>
 
             <button
@@ -32,22 +32,11 @@
             </button>
 
             <div class="recipe-content">
-              <h2><a [routerLink]="['/recipes', recipe.id]">{{ recipe.title }}</a></h2>
+              <h2><a [routerLink]="['/recipes', recipe.id]">{{ recipe.name }}</a></h2>
 
               <div class="meta-line">
                 <span class="meta-time">
                   <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
-<<<<<<< HEAD
-                  {{ recipe.meta.duration }} mins
-                </span>
-                <span
-                  class="difficulty-badge"
-                  [class.easy]="recipe.meta.difficulty === 'easy'"
-                  [class.medium]="recipe.meta.difficulty === 'medium'"
-                  [class.hard]="recipe.meta.difficulty === 'hard'"
-                >
-                  {{ recipe.meta.difficulty }}
-=======
                   {{ formatDuration(recipe) }}
                 </span>
                 <span
@@ -57,17 +46,12 @@
                   [class.hard]="recipe.difficulty === 'Hard'"
                 >
                   {{ recipe.difficulty }}
->>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
                 </span>
               </div>
 
               <div class="meta-line meta-rating">
                 <span class="stars" aria-hidden="true">★★★★★</span>
-<<<<<<< HEAD
-                <span>{{ recipe.meta.rating }} ({{ recipe.meta.reviewsCount }})</span>
-=======
                 <span>{{ formatRating(recipe) }} ({{ formatReviewCount(recipe) }})</span>
->>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
               </div>
             </div>
           </article>
@@ -82,8 +66,8 @@
         <div class="popular-grid">
           @for (recipe of popularRecipes(); track recipe.id) {
             <article class="recipe-card">
-              <a class="image-wrap" [routerLink]="['/recipes', recipe.id]" [attr.aria-label]="'Open ' + recipe.title">
-                <img [src]="recipe.imageUrl" [alt]="recipe.title" loading="lazy">
+              <a class="image-wrap" [routerLink]="['/recipes', recipe.id]" [attr.aria-label]="'Open ' + recipe.name">
+                <img [src]="recipe.imgUrl" [alt]="recipe.name" loading="lazy">
               </a>
 
               <button
@@ -97,22 +81,11 @@
               </button>
 
               <div class="recipe-content">
-                <h3><a [routerLink]="['/recipes', recipe.id]">{{ recipe.title }}</a></h3>
+                <h3><a [routerLink]="['/recipes', recipe.id]">{{ recipe.name }}</a></h3>
 
                 <div class="meta-line">
                   <span class="meta-time">
                     <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
-<<<<<<< HEAD
-                    {{ recipe.meta.duration }} mins
-                  </span>
-                  <span
-                    class="difficulty-badge"
-                    [class.easy]="recipe.meta.difficulty === 'easy'"
-                    [class.medium]="recipe.meta.difficulty === 'medium'"
-                    [class.hard]="recipe.meta.difficulty === 'hard'"
-                  >
-                    {{ recipe.meta.difficulty }}
-=======
                     {{ formatDuration(recipe) }}
                   </span>
                   <span
@@ -122,17 +95,12 @@
                     [class.hard]="recipe.difficulty === 'Hard'"
                   >
                     {{ recipe.difficulty }}
->>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
                   </span>
                 </div>
 
                 <div class="meta-line meta-rating">
                   <span class="stars" aria-hidden="true">★★★★★</span>
-<<<<<<< HEAD
-                  <span>{{ recipe.meta.rating }} ({{ recipe.meta.reviewsCount }})</span>
-=======
                   <span>{{ formatRating(recipe) }} ({{ formatReviewCount(recipe) }})</span>
->>>>>>> f8932c6fbaa62b7c90fef9183aa49f3e197c6478
                 </div>
               </div>
             </article>

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { RecipeService } from '../../../recipe-service';
+import { RecipeService } from '../../../features/recipes/recipe-service';
 
 @Component({
   selector: 'app-header',
