@@ -7,6 +7,8 @@
 @use '@angular/material' as mat;
 @use 'app/app.scss';
 
+@use 'app/shared/design-system/material-customs/custom-mat-menu.scss';
+
 html {
   height: 100%;
   @include mat.theme((

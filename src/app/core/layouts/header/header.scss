@@ -116,6 +116,13 @@
                 background: transparent;
                 color: var(--color-text-main);
                 cursor: pointer;
+                padding: var(--spacing-xs) var(--spacing-sm);
+                border-radius: var(--border-radius-pill);
+                transition: background-color 180ms ease;
+
+                &:hover {
+                    background: var(--color-surface-soft);
+                }
 
                 .avatar {
                     width: 34px;
@@ -127,12 +134,77 @@
                     color: #673229;
                     font-size: 0.72rem;
                     font-weight: 700;
+                    flex-shrink: 0;
+                }
+
+                .avatar-img {
+                    width: 34px;
+                    height: 34px;
+                    border-radius: var(--border-radius-circle);
+                    object-fit: cover;
+                    flex-shrink: 0;
                 }
 
                 .profile-name {
                     font-size: 0.9rem;
                     font-weight: 600;
                     white-space: nowrap;
+                }
+
+                .chevron {
+                    font-size: 20px;
+                    color: var(--color-text-muted);
+                    transition: transform 200ms ease;
+                }
+
+                &[aria-expanded='true'] .chevron {
+                    transform: rotate(180deg);
+                }
+            }
+
+            .guest-actions {
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-md);
+
+                .login-link {
+                    font-size: 0.92rem;
+                    font-weight: 600;
+                    color: var(--color-primary);
+                    text-decoration: none;
+                    padding: var(--spacing-sm) var(--spacing-md);
+                    border-radius: var(--border-radius-pill);
+                    transition: background-color 180ms ease;
+
+                    &:hover {
+                        background: rgba(217, 91, 67, 0.08);
+                    }
+
+                    &:focus-visible {
+                        outline: 2px solid var(--color-primary);
+                        outline-offset: 2px;
+                    }
+                }
+
+                .signup-button {
+                    font-size: 0.92rem;
+                    font-weight: 700;
+                    color: #fff;
+                    background: var(--color-primary);
+                    border-radius: var(--border-radius-pill);
+                    padding: var(--spacing-sm) var(--spacing-lg);
+                    text-decoration: none;
+                    transition: background-color 180ms ease, transform 180ms ease;
+
+                    &:hover {
+                        background: var(--color-primary-dark);
+                        transform: translateY(-1px);
+                    }
+
+                    &:focus-visible {
+                        outline: 2px solid #ffd3c6;
+                        outline-offset: 2px;
+                    }
                 }
             }
         }

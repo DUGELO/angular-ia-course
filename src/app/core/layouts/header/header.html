@@ -10,22 +10,57 @@
                 type="search"
                 [value]="recipeService.searchTerm()"
                 (input)="onSearchInput($event)"
-                placeholder="Search 15,000+ delicious recipes..."
+                placeholder="Search recipes, ingredients, cuisines..."
                 aria-label="Search recipes"
             >
             <button type="submit">Search</button>
         </form>
 
-        <div class="actions" aria-label="User actions">
-            <button type="button" class="icon-button" aria-label="Open favorites">
-                <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
-            </button>
+        <div class="actions">
+            @if (isAuthenticated()) {
+                <button type="button" class="icon-button" aria-label="Open favorites" routerLink="/favorites">
+                    <span class="material-symbols-outlined" aria-hidden="true">favorite</span>
+                </button>
 
-            <button type="button" class="profile" aria-label="Open profile menu">
-                <span class="avatar" aria-hidden="true">SM</span>
-                <span class="profile-name">Sarah M.</span>
-                <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_down</span>
-            </button>
+                <button
+                    type="button"
+                    class="profile"
+                    [matMenuTriggerFor]="profileMenu"
+                    aria-label="Open profile menu"
+                >
+                    @if (user()?.avatarUrl) {
+                        <img
+                            class="avatar-img"
+                            [src]="user()!.avatarUrl"
+                            [alt]="user()!.name + ' avatar'"
+                        >
+                    } @else {
+                        <span class="avatar" aria-hidden="true">{{ initials() }}</span>
+                    }
+                    <span class="profile-name">{{ user()!.name }}</span>
+                    <span class="material-symbols-outlined chevron" aria-hidden="true">keyboard_arrow_down</span>
+                </button>
+
+                <mat-menu #profileMenu="matMenu" class="profile-dropdown" xPosition="before">
+                    <a mat-menu-item routerLink="/profile">
+                        <mat-icon>person_outline</mat-icon>
+                        <span>Profile</span>
+                    </a>
+                    <a mat-menu-item routerLink="/favorites">
+                        <mat-icon>favorite_border</mat-icon>
+                        <span>Favorites</span>
+                    </a>
+                    <button mat-menu-item (click)="logout()">
+                        <mat-icon>logout</mat-icon>
+                        <span>Logout</span>
+                    </button>
+                </mat-menu>
+            } @else {
+                <div class="guest-actions">
+                    <a class="login-link" routerLink="/auth/login">Login</a>
+                    <a class="signup-button" routerLink="/auth/register">Sign up</a>
+                </div>
+            }
         </div>
     </header>
 </div>
