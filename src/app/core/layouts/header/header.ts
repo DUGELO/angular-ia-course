@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { RecipeService } from '../../../features/recipes/recipe-service';
 import { AuthService } from '../../auth/auth.service';
+import { AuthModalService } from '../../auth/auth-modal/auth-modal.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class Header {
   private readonly authService = inject(AuthService);
+  private readonly authModalService = inject(AuthModalService);
   private readonly router = inject(Router);
   protected readonly recipeService = inject(RecipeService);
 
@@ -21,17 +23,25 @@ export class Header {
   protected readonly isAuthenticated = this.authService.isAuthenticated$;
 
   protected readonly initials = computed(() => {
-    const u = this.user()?.name;
-    if (!u) return '';
-    const parts = u.split(' ');
-    return parts.length > 1
-      ? (parts[0][0] + parts[1][0]).toUpperCase()
-      : u.substring(0, 2).toUpperCase();
+    const name = this.user()?.name?.trim();
+    if (!name) return '';
+    const parts = name.split(/\s+/).filter(Boolean);
+    if (parts.length === 1) {
+      return parts[0].slice(0, 2).toUpperCase();
+    }
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   });
 
   protected logout(): void {
     this.authService.logout();
-    // void this.router.navigate(['/']);
+  }
+
+  protected openLogin(): void {
+    this.authModalService.openLogin().subscribe();
+  }
+
+  protected openRegister(): void {
+    this.authModalService.openRegister().subscribe();
   }
 
   protected onSearchInput(event: Event): void {

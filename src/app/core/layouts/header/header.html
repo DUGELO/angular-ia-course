@@ -57,8 +57,8 @@
                 </mat-menu>
             } @else {
                 <div class="guest-actions">
-                    <a class="login-link" routerLink="/auth/login">Login</a>
-                    <a class="signup-button" routerLink="/auth/register">Sign up</a>
+                    <button type="button" class="login-button" (click)="openLogin()">Login</button>
+                    <button type="button" class="signup-button" (click)="openRegister()">Sign up</button>
                 </div>
             }
         </div>

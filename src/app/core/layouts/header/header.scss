@@ -167,11 +167,13 @@
                 align-items: center;
                 gap: var(--spacing-md);
 
-                .login-link {
+                .login-button {
                     font-size: 0.92rem;
                     font-weight: 600;
                     color: var(--color-primary);
-                    text-decoration: none;
+                    background: transparent;
+                    border: 0;
+                    cursor: pointer;
                     padding: var(--spacing-sm) var(--spacing-md);
                     border-radius: var(--border-radius-pill);
                     transition: background-color 180ms ease;
@@ -191,9 +193,10 @@
                     font-weight: 700;
                     color: #fff;
                     background: var(--color-primary);
+                    border: 0;
+                    cursor: pointer;
                     border-radius: var(--border-radius-pill);
                     padding: var(--spacing-sm) var(--spacing-lg);
-                    text-decoration: none;
                     transition: background-color 180ms ease, transform 180ms ease;
 
                     &:hover {
